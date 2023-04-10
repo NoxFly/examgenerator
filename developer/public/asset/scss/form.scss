@@ -1,0 +1,268 @@
+/**
+ * @copyright Copyrights (C) 2023 Dorian Thivolle All rights reserved.
+ * @author Dorian Thivolle
+ * @since 2023
+ * @package uha.archi_web
+ */
+
+@import 'mixins.scss';
+
+.select {
+    @include flex($direction: column);
+
+    min-width: 100px;
+    height: 36px;
+    user-select: none;
+    position: relative;
+    box-sizing: border-box;
+    width: 150px;
+    margin: 0 10px;
+    z-index: 5;
+
+    &.multiple {
+        >div {
+            >opt {
+                &.selected {
+                    padding-left: 20px;
+                    font-weight: bold;
+
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        top: 50%;
+                        left: 10px;
+                        border-radius: 100%;
+                        width: 5px;
+                        height: 5px;
+                        background: var(--primary);
+                        transform: translateY(-50%);
+                    }
+                }
+            }
+        }
+    }
+
+    &.focus {
+        >span {
+            &::before {
+                transform: translateY(-30%) rotate(45deg);
+                border-top-color: var(--medium);
+                border-left-color: var(--medium);
+                border-bottom-color: transparent;
+                border-right-color: transparent;
+            }
+
+            &:hover {
+                &::before {
+                    border-top-color: var(--medium-shade);
+                    border-left-color: var(--medium-shade);
+                }
+            }
+        }
+
+        >div {
+            display: block;
+        }
+    }
+
+    &:not(.focus):not(.disabled) {
+        >span {
+            &:hover {
+                &::before {
+                    border-bottom-color: var(--medium-shade);
+                    border-right-color: var(--medium-shade);
+                }
+            }
+        }
+    }
+
+
+    >span {
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        padding: 8px 30px 8px 10px;
+        background: var(--light);
+        transition-duration: .1s;
+        position: relative;
+        font-size: 14px;
+        color: var(--medium-shade);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            width: 8px;
+            height: 8px;
+            border: 1px solid var(--medium);
+            border-left-color: transparent;
+            border-top-color: transparent;
+            transform: translateY(-70%) rotate(45deg);
+            transition-duration: .1s;
+        }
+
+        &:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 5px;
+            border-radius: 5px;
+            border: 1px solid var(--medium);
+            transition-duration: .1s;
+        }
+    }
+
+    >div {
+        width: 100%;
+        position: absolute;
+        top: calc(100% + 5px);
+        border-radius: 5px;
+        background: var(--light);
+        border: 1px solid var(--medium);
+        box-sizing: border-box;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        max-height: 250px;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        display: none;
+        z-index: 7;
+
+        >opt {
+            position: relative;
+            isolation: isolate;
+            box-sizing: border-box;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 14px;
+            display: block;
+            transition-duration: .1s;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 100%;
+
+            &:not(.disabled) {
+                cursor: default;
+
+                &:hover {
+                    &::before {
+                        content: '';
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        opacity: .2;
+                        background: var(--primary);
+                        z-index: -1;
+                    }
+                }
+            }
+        }
+    }
+
+
+    &:not(.disabled) {
+        >span {
+            cursor: pointer;
+
+            &:hover {
+                color: var(--dark);
+
+                &::after {
+                    border-color: var(--medium-shade);
+                    border-width: 2px;
+                }
+            }
+        }
+    }
+
+    &.disabled {
+        >span {
+            color: var(--medium);
+
+            &::after {
+                border-color: var(--light-tint);
+            }
+        }
+    }
+}
+
+.switch-1 {
+    @include flex;
+
+    height: 36px;
+    margin: 0 10px;
+
+    label {
+        @include flex($display: inline-flex);
+
+        border: 1px solid var(--medium);
+        height: 100%;
+        margin: 0;
+        padding: 5px 15px;
+        box-sizing: border-box;
+        font-size: 12px;
+        text-transform: capitalize;
+        cursor: pointer;
+        position: relative;
+        transition-duration: .1s;
+        user-select: none;
+
+        &:first-child {
+            border-radius: 5px 0 0 5px;
+        }
+
+        &:last-child {
+            border-radius: 0 5px 5px 0;
+        }
+
+        &:not(:last-child) {
+            border-right: none;
+        }
+
+        &:not(.active) {
+            opacity: .5;
+        }
+
+        &.active {
+            border-color: var(--primary);
+            color: var(--primary-dark);
+
+            &:not(:last-child) {
+                &::after {
+                    content: '';
+                    position: absolute;
+                    top: -1px;
+                    right: -1px;
+                    width: 1px;
+                    height: calc(100% + 2px);
+                    background: var(--primary);
+                    z-index: 2;
+                }
+            }
+        }
+
+        &:hover {
+            opacity: 1;
+        }
+
+        input[type="radio"] {
+            appearance: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 3;
+            cursor: pointer;
+        }
+    }
+}

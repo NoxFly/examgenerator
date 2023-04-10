@@ -1,0 +1,57 @@
+/**
+ * @copyright Copyrights (C) 2023 Dorian Thivolle All rights reserved.
+ * @author Dorian Thivolle
+ * @since 2023
+ * @package uha.archi_web
+ */
+
+:root {
+    --grey-blue-light: #F1F6FC;
+    --grey-blue: #D8E3EF;
+    --grey-blue-dark: #9ea6b6; // initially B3BCCD
+
+    --success: #70BC64;
+    --warning: #E89D45;
+    --danger: #D47272;
+
+    --primary-lighter: #8baced;
+    --success-lighter: #7ece71;
+    --warning-lighter: #f4b264;
+    --danger-lighter: #ee8b8b;
+
+    --primary-darker: #4e6aa1;
+    --success-darker: #538a4b;
+    --warning-darker: #b97c36;
+    --danger-darker: #a14e4e;
+
+    --success-contrast: #fff;
+    --warning-contrast: #fff;
+    --danger-contrast: #fff;
+
+    --primary: #7294D4;
+    --primary-dark: #3C4D70;
+    --primary-tint: #414E68;
+    --primary-shade: #232832;
+    --primary-contrast: #fff;
+
+    --light: #fff;
+    --light-tint: #eee;
+    --light-shade: #ddd;
+
+    --medium: #ccc;
+    --medium-tint: #888;
+    --medium-shade: #666;
+
+    --dark: #383844;
+    --dark-tint: #222;
+    --dark-shade: #111;
+
+
+    --background-color: var(--grey-blue-light);
+    --color: var(--dark);
+
+    --font-family: 'Open Sans';
+
+    --border-radius: 5px;
+    --border-radius-2: 20px;
+}

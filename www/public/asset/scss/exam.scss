@@ -1,0 +1,669 @@
+/**
+ * @copyright Copyrights (C) 2023 Dorian Thivolle All rights reserved.
+ * @author Dorian Thivolle
+ * @since 2023
+ * @package uha.archi_web
+ */
+
+@import 'mixins.scss';
+@import 'animations.scss';
+
+.page-board-my-exams {
+	margin-bottom: 50px;
+
+	.actions {
+		text-align: center;
+		margin-bottom: 50px;
+
+		button {
+			width: 200px;
+		}
+	}
+
+    > article {
+        width: 1000px;
+        margin: 0 auto 100px auto;
+
+		> details {
+			margin: 20px auto;
+			padding: 20px 0;
+			box-sizing: border-box;
+
+			&:not(:last-child) {
+				border-bottom: 1px solid var(--medium);
+			}
+
+			summary {
+				cursor: pointer;
+                user-select: none;
+                font-size: 1.1em;
+
+                h2 {
+                    @include flex($display: inline-flex, $justify-content: flex-start);
+
+                    margin: 0 0 0 20px;
+                    width: calc(100% - 60px);
+					text-transform: capitalize;
+					user-select: none;
+                }
+			}
+		}
+
+        p.center {
+            color: var(--medium);
+            font-weight: 100;
+            user-select: none;
+        }
+
+        table {
+            margin: 20px auto;
+            width: 100%;
+
+            th {
+                padding-bottom: 10px;
+            }
+
+            td {
+                padding: 5px 15px;
+                
+				> div {
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+				}
+
+				&.exam-course-name {
+					div {
+						width: 150px;
+					}
+				}
+
+                &.exam-action {
+                    button {
+                        margin: 0 8px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.page-board-exam-new {
+    box-sizing: border-box;
+    padding-bottom: 50px;
+    min-height: 100vh;
+
+    #step-progress-bar {
+        position: sticky;
+        top: 0;
+        left: 0;
+        z-index: 3;
+        pointer-events: none;
+        height: 3px;
+        width: var(--width, 0);
+        background: var(--primary);
+        border-radius: 8px;
+        transition: width .3s;
+    }
+
+    h1 {
+        margin-bottom: 0;
+    }
+
+    #step-content {
+        --animationSpeed: .5s;
+        --animationTimingFunc: ease-in-out;
+
+        width: 100%;
+
+        &[class*="step-transition-"] {
+            &[class$="forwards"] {
+                --animationName: stepDisappearForwards;
+            }
+
+            &[class$="backwards"] {
+                --animationName: stepDisappearBackwards;
+            }
+
+            @extend .animated;
+        }
+
+        &[class*="step-appear-"] {
+            &[class$="forwards"] {
+                --animationName: stepAppearForwards;
+            }
+
+            &[class$="backwards"] {
+                --animationName: stepAppearBackwards;
+            }
+
+            @extend .animated;
+        }
+
+        > h2:first-child {
+            margin-top: 20px;
+            margin-bottom: 100px;
+            color: var(--primary);
+            font-weight: 100;
+            font-size: 1em;
+            user-select: none;
+            text-align: center;
+        }
+    }
+
+    .step-0 {
+        .select {
+            margin: 0 auto;
+        }
+    }
+
+    .step-1 {
+        > h1 {
+            margin-bottom: 0;
+        }
+
+        > h2 {
+            text-align: center;
+            color: var(--primary);
+            font-weight: 100;
+            user-select: none;
+        }
+    }
+
+    .step-2 {
+        > div {
+            @include flex($wrap: wrap, $align-items: flex-start);
+            position: relative;
+        }
+    
+        #marks-table {
+            position: sticky;
+            top: 20px;
+            left: 0;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            background: var(--light);
+            border-radius: 4px;
+
+            .prev-step {
+                position: absolute;
+                top: 0;
+                left: 0;
+                transform: translateY(-50px);
+            }
+    
+            form {
+                max-height: 85vh;
+                overflow-y: auto;
+                padding: 20px;
+                box-sizing: border-box;
+    
+                label {
+                    display: block;
+                    font-weight: bold;
+                    color: #444;
+                    margin: 5px 0;
+                    text-align: right;
+                    user-select: none;
+    
+                    span {
+                        font-size: .8em;
+                    }
+    
+                    input {
+                        margin-left: 20px;
+                        width: 70px;
+                        background:rgba(0, 0, 0, .02);
+                        text-align: right;
+                    }
+                }
+            }
+    
+            p {
+                text-align: right;
+                padding: 0 20px;
+                box-sizing: border-box;
+                margin-top: 0;
+                margin-bottom: 25px;
+                font-weight: bold;
+    
+                input {
+                    background-color: rgba(0, 0, 0, .02);
+                    width: 70px;
+                    text-align: right;
+                }
+            }
+    
+            .btn-confirm {
+                margin: 15px auto;
+                box-sizing: border-box;
+                width: 80%;
+                display: block;
+            }
+        }
+    
+        #subject-wrapper {
+            @include flex($align-items: flex-start);
+    
+            box-sizing: border-box;
+            padding-inline: 50px;
+            padding-bottom: 20px;
+    
+            .subject {
+                margin-top: 0;
+            }
+        }
+    }
+    
+    
+    .step-3 {
+        margin-bottom: 150px;
+
+        .slct-levels {
+            margin: 50px auto;
+        }
+    
+        .dates-wrapper {
+            @include flex;
+    
+            > div {
+                margin: 20px;
+    
+                label {
+                    display: block;
+                    text-align: center;
+                    user-select: none;
+                }
+            }
+        }
+    
+        .actions {
+            @include flex;
+    
+            margin-top: 50px;
+    
+            button {
+                margin: 0 10px;
+                width: 150px;
+            }
+        }
+    }
+
+    .select {
+        width: 450px;
+    }
+
+    #subject-chapters-selection {
+        @include flex($wrap: wrap, $align-items: flex-start);
+
+        width: 100%;
+        margin-top: 50px;
+
+        #chapters-selection-wrapper {
+            width: 400px;
+            height: 100vh;
+            box-sizing: border-box;
+            padding: 60px 30px 10px 30px;
+            transition-duration: .2s;
+            position: sticky;
+            top: 0;
+            left: 0;
+            background: transparent;
+            overflow-y: auto;
+
+            input {
+                transition: background-color .2s;
+            }
+
+            &.filled {
+                background-color: var(--light);
+
+                input[type="text"] {
+                    background: rgba(0, 0, 0, .04);
+                }
+            }
+
+            h2, h3 {
+                user-select: none;
+            }
+
+            h2 {
+                margin-top: 0;
+            }
+
+            h3 {
+                margin-top: 20px;
+                margin-bottom: 5px;
+                color: var(--primary);
+                font-weight: 100;
+                font-size: 1em;
+            }
+
+            #ipt-exam-name {
+                width: 100%;
+            }
+
+            #exam-type {
+                label {
+                    @include flex($justify-content: flex-start);
+
+                    width: 100%;
+                    padding: 5px 0 5px 15px;
+                    cursor: pointer;
+                    position: relative;
+                    font-size: .9em;
+
+                    &::before {
+                        content: '';
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        opacity: 0;
+                        background: var(--primary);
+                        border-radius: 6px;
+                        z-index: -1;
+                        transition-duration: .1s;
+                    }
+
+                    &:hover {
+                        &::before {
+                            opacity: .1;
+                        }
+                    }
+                }
+            }
+
+            ul {
+                box-sizing: border-box;
+                list-style-type: none;
+                width: 80%;
+                margin: 0 auto;
+                padding: 0;
+                overflow-x: hidden;
+
+                li {
+                    box-sizing: border-box;
+                    height: 40px;
+                    opacity: .6;
+                    padding: 9px 10px;
+                    user-select: none;
+                    cursor: pointer;
+                    position: relative;
+                    transition: padding-left .1s, opacity .1s;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+
+                    &::before {
+                        content: '';
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        opacity: 0;
+                        background: var(--primary);
+                        border-radius: 6px;
+                        z-index: -1;
+                        transition-duration: .1s;
+                    }
+
+                    &:hover {
+                        &::before {
+                            opacity: .2;
+                        }
+                    }
+
+                    &.selected {
+                        padding-left: 15px;
+                        opacity: 1;
+
+                        &::after {
+                            content: '';
+                            position: absolute;
+                            top: 50%;
+                            left: 0;
+                            transform: translateY(-50%);
+                            width: 5px;
+                            height: 5px;
+                            border-radius: 100%;
+                            background: var(--primary);
+                        }
+                    }
+                }
+            }
+
+            #question-count {
+                margin-top: 10px;
+
+                > span {
+                    user-select: none;
+                    font-size: .9em;
+                }
+
+                input {
+                    width: 50px;
+                    text-align: right;
+
+                    &.danger {
+                        border-color: var(--danger);
+                    }
+                }
+            }
+
+            #question-type {
+                @include flex($justify-content: flex-start, $wrap: wrap);
+
+                margin-top: 10px;
+                isolation: isolate;
+
+                .input-middle-range {
+                    flex: 1;
+                }
+
+                label {
+                    font-size: .8em;
+                    user-select: none;
+
+                    &:first-of-type {
+                        margin-right: 10px;
+                    }
+
+                    &:last-of-type {
+                        margin-left: 10px;
+                    }
+                }
+
+                .range-delimiters {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 1;
+                    pointer-events: none;
+
+                    &::before,
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        top: 50%;
+                        width: 2px;
+                        height: 15px;
+                        transform: translateY(-50%);
+                        background: var(--danger);
+                        z-index: 5;
+                    }
+
+                    &::before {
+                        left: var(--min, 0);
+                    }
+
+                    &::after {
+                        left: var(--max, 100%);
+                    }
+
+                    input {
+                        width: 100%;
+                    }
+                }
+                
+                span {
+                    display: block;
+                    width: 100%;
+                    margin-top: 10px;
+                    text-align: center;
+                }
+            }
+
+            button {
+                display: block;
+                width: 80%;
+                margin-top: 50px;
+                margin-inline: auto;
+            }
+        }
+
+        #subjects-wrapper {
+            flex: 1;
+            min-height: 100px;
+            box-sizing: border-box;
+            padding-inline: 50px;
+            padding-top: 50px;
+            padding-bottom: 50px;
+
+            .subjects-navigation {
+                @include flex;
+
+                margin: 0 auto;
+                padding: 0;
+                list-style-type: none;
+                width: 100%;
+
+                li {
+                    width: 150px;
+                    border-bottom: 1px solid transparent;
+                    padding: 10px;
+                    position: relative;
+                    user-select: none;
+                    cursor: pointer;
+                    text-align: center;
+                    font-family: 'Open Sans';
+                    font-size: .9em;
+
+                    &::before {
+                        content: '';
+                        position: absolute;
+                        bottom: 0;
+                        left: 50%;
+                        width: 100%;
+                        height: 100%;
+                        background: var(--primary);
+                        border-radius: 4px;
+                        opacity: 0;
+                        transform: translateX(-50%);
+                        transition-duration: .1s;
+                    }
+
+                    &:hover {
+                        &::before {
+                            opacity: .1;
+                        }
+                    }
+
+                    &.selected {
+                        border-color: var(--primary);
+                        color: var(--primary-dark);
+                        cursor: default;
+
+                        &::before {
+                            opacity: .2;
+                            border-radius: 4px 4px 0 0;
+                        }
+                    }
+                }
+            }
+
+            > .inner {
+                animation: appear .5s forwards ease-out;
+            }
+
+            .btn-next-step {
+                height: 50px;
+                box-sizing: border-box;
+                margin: 20px auto;
+                display: block;
+                // font-weight: bold;
+                font-size: 1em;
+                font-family: 'Roboto';
+                padding-inline: 25px;
+            }
+        }
+    }
+}
+
+.page-board-exam-v {
+    #subject-actions {
+        margin: 50px auto 0 auto;
+        width: 1000px;
+        max-width: 98vw;
+    }
+}
+
+.page-board-exam-m {
+    #subject-actions {
+        text-align: center;
+
+        button:disabled {
+            filter: grayscale(1);
+            opacity: .2;
+        }
+    }
+
+    #subject-wrapper {
+        > .center {
+            margin-top: 150px;
+        }
+    }
+}
+
+.page-board-exam-p {
+    #subject-actions {
+        text-align: center;
+        margin: 10px auto 50px auto;
+    }
+}
+
+
+@media screen and (max-width: 1900px) {
+    .page-board-exam-new {
+        #subject-chapters-selection {
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+
+            #subjects-wrapper {
+                .subjects-navigation {
+                    width: 100%;
+                }
+                
+                > .inner {
+                    width: 1000px;
+
+                    .subject-content {
+                        width: 1000px;
+                        overflow-x: auto;
+                    }
+                }
+            }
+        }
+
+        .step-2 {
+            > div {
+                justify-content: flex-start;
+                flex-wrap: nowrap;
+            }
+        }
+    }
+}

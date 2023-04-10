@@ -1,0 +1,29 @@
+/**
+ * @copyright Copyrights (C) 2023 Dorian Thivolle All rights reserved.
+ * @author Dorian Thivolle
+ * @since 2023
+ * @package uha.archi_web
+ */
+
+@mixin flex($display: flex, $direction: row, $wrap: nowrap, $justify-content: center, $align-items: center) {
+	display: $display;
+	flex-flow: $direction $wrap;
+	justify-content: $justify-content;
+	align-items: $align-items;
+}
+
+@mixin mask($maskImage: unset, $maskBackground: unset) {
+	mask-mode: alpha;
+	mask-repeat: no-repeat;
+	mask-origin: content-box;
+	mask-position: center;
+	mask-size: contain;
+
+	@if $maskImage != unset {
+		mask-image: $maskImage;
+	}
+
+	@if $maskBackground != unset {
+		background: $maskBackground;
+	}
+}
